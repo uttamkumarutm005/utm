@@ -1,0 +1,325 @@
+1)
+
+
+
+select column_names, data_types
+
+from information_schema.columns
+
+where table_name = 'coupon_details' ;
+
+
+
+2)
+
+
+
+SELECT count(*) AS counttablerows,
+
+auto_increment AS currentautoincrement
+
+FROM information_schema.tables
+
+WHERE table_schema = 'mydb'
+
+AND table_name = 'vehicle_details';
+
+
+
+3)
+
+
+
+SELECT d.driver_name, AVG(p.driver_rating) as "average rating"
+
+FROM driver_details d
+
+JOIN booking_details b ON d.driver_id = b.driver_id
+
+JOIN payment_details p ON b.booking_id = p.booking_id
+
+WHERE b.type_of_travel = ;solo'
+
+GROUP BY d.driver name
+
+ORDER BY AVG(p.driver_rating) DESC
+
+LIMIT 1;
+
+
+
+4)
+
+
+
+SELECT cn.customer_name
+
+FROM customer_details cn
+
+JOIN booking_details bd ON cn.customer_id = bd.customer_id
+
+JOIN payment_detaiis pd ON bd.booking_id = pd.booking_id
+
+WHERE pd.coupon_code =
+
+(SELECT coupon_code FROM coupon_details WHERE description =
+
+'Happy hours offer');
+
+
+
+5)
+
+
+
+SELECT d.driver_name, COUNT(c.customer_id) as no_of_customers
+
+FROM driver_details d
+
+JOIN booking_details b ON d.driver_id = b.driver_id
+
+JOIN customer_details c ON b.customer_id = c.customer_id
+
+WHERE b.driver_id IN
+
+(SELECT driver_id FROM vehicle_details WHERE vehicle_type = 'Mini') AND b.type_of_travel ='pool'
+
+GROUP BY d.driver name;
+
+
+
+6)
+
+
+
+SELECT c.customer_name
+
+FROM customer_details c
+
+JOIN booking_details b ON c.customer_id = b.customer id
+
+JOIN payment_details p b.booking_id = p.booking_id
+
+WHERE p.coupon_code = (SELECT coupon_code FROM coupon_detaiis WHERE description ='Welcome offer')
+
+ORDER BY p.journey_duration DESC
+
+LIMIT 1;
+
+
+
+7)
+
+
+
+SELECT b.booking_id
+
+FROM booking_details
+
+JOIN customer_details c ON b.customer_id = c.customer_id
+
+WHERE LOWER(c.customer_name)
+
+LIKE '%imb%;
+
+
+
+8)
+
+
+
+SELECT v.vehicie_model
+
+FROM vehicle_details v
+
+JOIN driver_details d ON v.driver_id = d.driver_id
+
+WHERE SUBSTRING(d.license_number,3,1) IN ('B','G')
+
+AND SUBSTRING(d.license_number,7,1) IN ('G','P');
+
+
+
+9)
+
+
+
+SELECT d.driver_name
+
+FROM driver_details d
+
+JOIN booking_details b ON d.driver_id = b.driver_id
+
+ORDER BY DATEDIFF(b.date_of_booking, d.date_of_registration) DESC
+
+LIMIT 1;
+
+
+
+10)
+
+
+
+SELECT MONTHNAME(date_of_booking) as 'month'
+
+FROM booking_detaiis
+
+GROUP BY month
+
+ORDER BY COUNT(booking_id) DESC
+
+LIMIT 1;
+
+
+
+11)
+
+
+
+SELECT c.customer_name, AVG(p.fare) as "average_fare"
+
+FROM customer_details c
+
+JOIN booking_detaiis b ON c.customer_id = b.customer_id
+
+JOIN payment_details p ON b. booking_id = p.booking_id
+
+GROUP BY c.customer_name
+
+ORDER BY AVG(p.fare) DESC
+
+LIMIT 1;
+
+
+
+12)
+
+
+
+SELECT CONCAT(b.booking_id, '#', d.driver_name, '#' c.customer_name, '#', b.source, '#', b.destination, '#', b.booking_status) as booking_details
+
+FROM booking_detaiis b
+
+JOIN customer_details c ON b.customer id = c.customer id
+
+JOIN driver_details d ON b.driver id = d.driver_id
+
+ORDER BY c.date_of_registration, b.date_of_booking DESC
+
+LIMIT 1;
+
+
+
+13)
+
+
+
+SELECT payment_type, coupon_code, SUM(fare) AS "total_fare"
+
+FROM payment_detaiis
+
+GROUP BY payment_type, coupon_code;
+
+
+
+14)
+
+
+
+SELECT d.driver_id, d.driver_name
+
+FROM driver_detaiis d
+
+JOIN booking_detaiis b ON d.driver_id = b.driver_id
+
+JOIN payment_details p ON b.booking_id p.booking_id
+
+GROUP BY d.driver_id
+
+HAVING AVG(p.fare) < (SELECT AVG(fare) FROM payment_details);
+
+
+
+15)
+
+
+
+SELECT d.driver_name
+
+FROM driver_details d
+
+JOIN booking_details b ON d.driver_id = b.driver_id
+
+JOIN payment_details b ON b.booking_id = p.booking_id
+
+GROUP BY d.driver_name
+
+ORDER BY SUM(p.fare)
+
+LIMIT 1;
+
+
+
+16)
+
+
+
+SELECT COUNT(*) AS total_bookings
+
+FROM booking_details
+
+WHERE date_of_booking >=DATE_SUB(current_date(), INTERVAL 6 MONTH);
+
+
+
+17)
+
+
+
+SELECT c.description, COUNT(DISTINCT b.customer id) as total_users FROM coupon_details c
+
+JOIN payment_details p ON c.couoon_code = p.couoon_code;
+
+
+
+18)
+
+
+
+SELECT driver name, average_rating,
+
+CASE
+
+WHEN average_rating >= 4.7 THEN 'Best'
+
+WHEN average_rating BETWEEN 4.3 AND 4.6 THEN 'Good'
+
+WHEN average_rating BETWEEN 4.0 AND 4.2 THEN 'Above Average'
+
+WHEN average_rating BETWEEN 3.5 AND 3.9 THEN 'Average'
+
+END as category
+
+FROM driver_details;
+
+
+
+19)
+
+
+
+SELECT DISTINCT destination
+
+FROM booking_details;
+
+
+
+20)
+
+
+
+SELECT DISTINCT source
+
+FROM booking_details
+
+WHERE source NOT IN (SELECT DISTINCT destination FROM booking_details) ;
