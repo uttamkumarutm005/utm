@@ -1,0 +1,43 @@
+-- Create the Designations table
+CREATE TABLE Designations (
+    Design_code INT,
+    Design_name VARCHAR(50),
+    Basic_salary DECIMAL(8,2)
+);
+
+-- Insert 10 rows into the Designations table
+INSERT INTO Designations (Design_code, Design_name, Basic_salary) VALUES
+(1, 'Software Engineer', 60000.00),
+(2, 'Senior Software Engineer', 80000.00),
+(3, 'Lead Developer', 90000.00),
+(4, 'Project Manager', 95000.00),
+(5, 'QA Engineer', 55000.00),
+(6, 'Business Analyst', 70000.00),
+(7, 'System Administrator', 60000.00),
+(8, 'Technical Support', 45000.00),
+(9, 'HR Manager', 75000.00),
+(10, 'Data Scientist', 95000.00);
+
+
+-- Create the Staff table
+CREATE TABLE Staff (
+    Staff_code INT,
+    Design_code INT,
+    Staff_name VARCHAR(50),
+    Dept_code INT,
+    Hire_date DATE,
+    Salary DECIMAL(8,2)
+);
+
+-- Insert 10 rows into the Staff table
+INSERT INTO Staff (Staff_code, Design_code, Staff_name, Dept_code, Hire_date, Salary) VALUES
+(101, 1, 'John Doe', 1001, '2020-01-15', 62000.00),
+(102, 2, 'Jane Smith', 1002, '2019-03-20', 82000.00),
+(103, 3, 'Robert Brown', 1003, '2018-06-30', 92000.00),
+(104, 4, 'Emily Davis', 1004, '2017-11-25', 97000.00),
+(105, 5, 'Michael Wilson', 1005, '2021-04-10', 57000.00),
+(106, 6, 'Sarah Miller', 1001, '2016-09-14', 72000.00),
+(107, 7, 'David Garcia', 1002, '2015-07-19', 62000.00),
+(108, 8, 'Laura Martinez', 1003, '2018-12-01', 47000.00),
+(109, 9, 'Daniel Anderson', 1004, '2019-10-10', 77000.00),
+(110, 10, 'Sophia Hernandez', 1005, '2022-02-28', 98000.00);
