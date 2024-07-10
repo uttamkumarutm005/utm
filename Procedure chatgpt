@@ -1,0 +1,47 @@
+
+CREATE TABLE IF NOT EXISTS employees (
+    id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    salary DECIMAL(10, 2)
+);
+
+INSERT INTO employees (id, first_name, last_name, salary) VALUES
+(1, 'John', 'Doe', 45000),
+(2, 'Jane', 'Smith', 75000);
+
+
+DELIMITER //
+
+CREATE PROCEDURE update_salary(
+    IN emp_id INT,
+    IN salary_threshold DECIMAL(10, 2),
+    IN percent_increase DECIMAL(5, 2),
+    IN fixed_increase DECIMAL(10, 2)
+)
+BEGIN
+    DECLARE current_salary DECIMAL(10, 2);
+
+    -- Get the current salary of the employee
+    SELECT salary INTO current_salary FROM employees WHERE id = emp_id;
+
+    -- Check if the current salary is below the threshold
+    IF current_salary < salary_threshold THEN
+        -- Increase salary by a percentage
+        UPDATE employees
+        SET salary = salary * (1 + percent_increase / 100)
+        WHERE id = emp_id;
+    ELSE
+        -- Increase salary by a fixed amount
+        UPDATE employees
+        SET salary = salary + fixed_increase
+        WHERE id = emp_id;
+    END IF;
+END //
+
+DELIMITER ;
+-- Increase the salary of employee with id 1
+CALL update_salary(1, 50000, 10, 2000);
+
+-- Increase the salary of employee with id 2
+CALL update_salary(2, 50000, 10, 2000);
