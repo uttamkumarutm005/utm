@@ -1,4 +1,4 @@
--- Create the Designations table
+-- -- Create the Designations table
 CREATE TABLE Designations (
     Design_code INT,
     Design_name VARCHAR(50),
@@ -18,7 +18,6 @@ INSERT INTO Designations (Design_code, Design_name, Basic_salary) VALUES
 (9, 'HR Manager', 75000.00),
 (10, 'Data Scientist', 95000.00);
 
-
 -- Create the Staff table
 CREATE TABLE Staff (
     Staff_code INT,
@@ -29,7 +28,7 @@ CREATE TABLE Staff (
     Salary DECIMAL(8,2)
 );
 
--- Insert 10 rows into the Staff table
+-- Insert 10 rows into the Staff table ensuring related Design_code values
 INSERT INTO Staff (Staff_code, Design_code, Staff_name, Dept_code, Hire_date, Salary) VALUES
 (101, 1, 'John Doe', 1001, '2020-01-15', 62000.00),
 (102, 2, 'Jane Smith', 1002, '2019-03-20', 82000.00),
@@ -41,3 +40,4 @@ INSERT INTO Staff (Staff_code, Design_code, Staff_name, Dept_code, Hire_date, Sa
 (108, 8, 'Laura Martinez', 1003, '2018-12-01', 47000.00),
 (109, 9, 'Daniel Anderson', 1004, '2019-10-10', 77000.00),
 (110, 10, 'Sophia Hernandez', 1005, '2022-02-28', 98000.00);
+
