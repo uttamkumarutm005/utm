@@ -1,4 +1,4 @@
-CREATE TABLE driver_detail(
+CREATE TABLE driver_details(
     driver_id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Unique id for every driver',
     driver_name VARCHAR(50) NOT NULL COMMENT 'Name of the driver',
     contact_no BIGINT(10) NOT NULL UNIQUE COMMENT 'Contact number of the driver',
@@ -8,8 +8,8 @@ CREATE TABLE driver_detail(
 );
 
 -- Setting the starting value of AUTO_INCREMENT to 1001
-ALTER TABLE driver_detail AUTO_INCREMENT = 1001;
-INSERT INTO driver_detail (driver_id, driver_name, contact_no, license_number, date_of_registration, average_rating) VALUES
+ALTER TABLE driver_details AUTO_INCREMENT = 1001;
+INSERT INTO driver_details (driver_id, driver_name, contact_no, license_number, date_of_registration, average_rating) VALUES
 (1001, 'Alex', 9900990091, 'USM101AL', CURRENT_DATE - INTERVAL 750 DAY, 4.3),
 (1002, 'Bob', 8800880087, 'USQ102BO', CURRENT_DATE - INTERVAL 700 DAY, 4.1),
 (1003, 'George', 9988998895, 'USB103GE', CURRENT_DATE - INTERVAL 650 DAY, 3.9),
