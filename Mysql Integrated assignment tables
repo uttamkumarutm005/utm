@@ -29,7 +29,7 @@ CREATE TABLE vehicle_details (
     vehicle_type VARCHAR(50) NOT NULL COMMENT 'Type of the vehicle',
     seating_capacity INT NOT NULL COMMENT 'Seating capacity of the car',
     charges_per_hour DECIMAL(6,2) NOT NULL DEFAULT 0 COMMENT 'Charges per hour of travel',
-    FOREIGN KEY (driver_id) REFERENCES driver_detail(driver_id)
+    FOREIGN KEY (driver_id) REFERENCES driver_details(driver_id)
 );
 INSERT INTO vehicle_details (car_registration, driver_id, vehicle_model, vehicle_type, seating_capacity, charges_per_hour) VALUES
 ('US31D456', 1001, 'Toyota Corolla', 'Sedan', 4, 39.00),
@@ -74,8 +74,8 @@ CREATE TABLE booking_details
     type_of_travel ENUM('pool', 'solo') NOT NULL COMMENT 'Type of travel chosen by customer',
     number_of_persons INT COMMENT 'Number of persons travelling',
     booking_status ENUM('waiting', 'travelling', 'completed', 'cancelled') NOT NULL DEFAULT 'waiting' COMMENT 'Status of the travel',
-    FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
-    FOREIGN KEY (driver_id) REFERENCES driver_detail(driver_id)
+    FOREIGN KEY (customer_id) REFERENCES customer_details(customer_id),
+    FOREIGN KEY (driver_id) REFERENCES driver_details(driver_id)
 );
 
 INSERT INTO booking_details(booking_id, customer_id, driver_id, date_of_booking, source, destination, type_of_travel, number_of_persons, booking_status) VALUES
@@ -104,7 +104,6 @@ CREATE TABLE coupon_details (
 INSERT INTO coupon_details (coupon_code, expiry_date, description, discount_percentage) VALUES
 ('WELCOME20', CURRENT_DATE - INTERVAL 7 DAY, 'Welcome offer', 20),
 ('SEASONAL15', CURRENT_DATE - INTERVAL 1 DAY, 'Seasonal offer', 15),
-('HAPPY30', CURRENT_DATE, 'Happy hours offer', 30),
 ('DHAMAKA20', CURRENT_DATE + INTERVAL 31 DAY, 'Marching it offer', 20);
 
 
@@ -118,7 +117,7 @@ CREATE TABLE payment_details (
     payment_type ENUM('cash', 'wallet', 'upi') NOT NULL DEFAULT 'wallet' COMMENT 'Mode of payment',
     driver_rating FLOAT COMMENT 'Rating for the driver',
     feedback TEXT COMMENT 'Feedback for the journey/driver',
-    FOREIGN KEY (booking_id) REFERENCES booking(booking_id),
+    FOREIGN KEY (booking_id) REFERENCES booking_details(booking_id),
     FOREIGN KEY (coupon_code) REFERENCES coupon_details(coupon_code)
 );
 
