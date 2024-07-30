@@ -73,9 +73,7 @@ CREATE TABLE booking_details
     destination VARCHAR(50) NOT NULL COMMENT 'Customer\'s drop location',
     type_of_travel ENUM('pool', 'solo') NOT NULL COMMENT 'Type of travel chosen by customer',
     number_of_persons INT COMMENT 'Number of persons travelling',
-    booking_status ENUM('waiting', 'travelling', 'completed', 'cancelled') NOT NULL DEFAULT 'waiting' COMMENT 'Status of the travel',
-    FOREIGN KEY (customer_id) REFERENCES customer_details(customer_id),
-    FOREIGN KEY (driver_id) REFERENCES driver_details(driver_id)
+    booking_status ENUM('waiting', 'travelling', 'completed', 'cancelled') NOT NULL DEFAULT 'waiting' COMMENT 'Status of the travel'
 );
 
 INSERT INTO booking_details(booking_id, customer_id, driver_id, date_of_booking, source, destination, type_of_travel, number_of_persons, booking_status) VALUES
@@ -117,8 +115,7 @@ CREATE TABLE payment_details (
     payment_type ENUM('cash', 'wallet', 'upi') NOT NULL DEFAULT 'wallet' COMMENT 'Mode of payment',
     driver_rating FLOAT COMMENT 'Rating for the driver',
     feedback TEXT COMMENT 'Feedback for the journey/driver',
-    FOREIGN KEY (booking_id) REFERENCES booking_details(booking_id),
-    FOREIGN KEY (coupon_code) REFERENCES coupon_details(coupon_code)
+    FOREIGN KEY (booking_id) REFERENCES booking_details(booking_id)
 );
 
 INSERT INTO payment_details (payment_id, booking_id, journey_duration, waiting_duration, coupon_code, fare, payment_type, driver_rating, feedback) VALUES
