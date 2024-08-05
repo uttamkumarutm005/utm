@@ -48,7 +48,7 @@ CREATE TABLE customer_details
  (
     customer_id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'Unique id for every customer',
     customer_name VARCHAR(50) NOT NULL COMMENT 'Name of the customer',
-    date_of_registration DATE NOT NULL COMMENT 'Date of customer registration in the portal',
+    date_of_registration DATE NOT NULL default current_date COMMENT 'Date of customer registration in the portal',
     customer_phone BIGINT(10) NOT NULL UNIQUE COMMENT 'Phone number of the customer',
     customer_address TEXT COMMENT 'Address of the customer',
     credit_points INT NOT NULL DEFAULT 0 COMMENT 'Credit points awarded to the customer',
